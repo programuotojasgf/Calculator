@@ -4,17 +4,17 @@ namespace Calculator.Tests.BasicArithmeticNS;
 
 public class SumTests
 {
-    [Fact]
-    public void OnePlusOne_ReturnsTwo()
+    [Theory]
+    [InlineData(1, 1, 2)]
+    [InlineData(2, 2, 4)]
+    public void Sum_ReturnsExpected(int left, int right, int expected)
     {
         // Arrange
-        const int left = 1;
-        const int right = 1;
-
+        
         // Act
         var result = Calculator.BasicArithmetic.Sum(left, right);
 
         // Assert
-        result.Should().Be(2);
+        result.Should().Be(expected);
     }
 }
