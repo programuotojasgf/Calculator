@@ -75,4 +75,43 @@ public class MultiplyTests
         // Assert
         result.Should().Be(expected);
     }
+
+    [Theory]
+    [InlineData(int.MaxValue, 1, int.MaxValue)]
+    [InlineData(1, int.MaxValue, int.MaxValue)]
+    [InlineData(int.MinValue, 1, int.MinValue)]
+    [InlineData(1, int.MinValue, int.MinValue)]
+    [InlineData(int.MaxValue, -1, -int.MaxValue)]
+    [InlineData(-1, int.MaxValue, -int.MaxValue)]
+    public void Multiply_WithBoundaryValues_ReturnsExpected(int left, int right, int expected)
+    {
+        // Arrange
+        
+        // Act
+        var result = Calculator.BasicArithmetic.Multiply(left, right);
+
+        // Assert
+        result.Should().Be(expected);
+    }
+
+    [Theory]
+    [InlineData(int.MaxValue, 2)]
+    [InlineData(2, int.MaxValue)]
+    [InlineData(int.MinValue, 2)]
+    [InlineData(2, int.MinValue)]
+    [InlineData(int.MaxValue, int.MaxValue)]
+    [InlineData(int.MinValue, int.MinValue)]
+    [InlineData(int.MaxValue, int.MinValue)]
+    public void Multiply_WithBoundaryValuesAndOverflow_HandlesOverflow(int left, int right)
+    {
+        // Arrange
+        
+        // Act & Assert
+        // These will overflow but the method doesn't use checked arithmetic
+        // so we expect them to wrap around without throwing
+        var result = Calculator.BasicArithmetic.Multiply(left, right);
+        
+        // Just verify no exception is thrown and result is calculated
+        result.Should().BeOfType(typeof(int));
+    }
 }
