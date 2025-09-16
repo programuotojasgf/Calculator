@@ -72,17 +72,19 @@ public class SumTests
     }
 
     [Theory]
-    [InlineData(int.MaxValue, 1)] // Overflow should throw exception
-    [InlineData(int.MinValue, -1)] // Underflow should throw exception  
-    [InlineData(int.MaxValue, int.MaxValue)] // MaxValue + MaxValue should throw exception
-    [InlineData(int.MinValue, int.MinValue)] // MinValue + MinValue should throw exception
-    [InlineData(2000000000, 2000000000)] // Large positive overflow should throw exception
+    [InlineData(int.MaxValue, 1)]
+    [InlineData(int.MinValue, -1)]
+    [InlineData(int.MaxValue, int.MaxValue)]
+    [InlineData(int.MinValue, int.MinValue)]
+    [InlineData(2000000000, 2000000000)]
     public void Sum_WithOverflowConditions_ThrowsOverflowException(int left, int right)
     {
         // Arrange
         
-        // Act & Assert
+        // Act
         var action = () => Calculator.BasicArithmetic.Sum(left, right);
+        
+        // Assert
         action.Should().Throw<OverflowException>();
     }
 }
