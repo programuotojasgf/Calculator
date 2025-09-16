@@ -17,8 +17,6 @@ public class SumTests
         // Assert
         result.Should().Be(expected);
     }
-<<<<<<< Current (Your changes)
-=======
 
     [Theory]
     [InlineData(0, 0, 0)]
@@ -74,20 +72,19 @@ public class SumTests
     }
 
     [Theory]
-    [InlineData(int.MaxValue, 1, int.MinValue)] // Overflow wraps to MinValue
-    [InlineData(int.MinValue, -1, int.MaxValue)] // Underflow wraps to MaxValue  
-    [InlineData(int.MaxValue, int.MaxValue, -2)] // MaxValue + MaxValue = -2 (overflow)
-    [InlineData(int.MinValue, int.MinValue, 0)] // MinValue + MinValue = 0 (underflow)
-    [InlineData(2000000000, 2000000000, -294967296)] // Large positive overflow
-    public void Sum_WithOverflowConditions_WrapsAround(int left, int right, int expected)
+    [InlineData(int.MaxValue, 1)]
+    [InlineData(int.MinValue, -1)]
+    [InlineData(int.MaxValue, int.MaxValue)]
+    [InlineData(int.MinValue, int.MinValue)]
+    [InlineData(2000000000, 2000000000)]
+    public void Sum_WithOverflowConditions_ThrowsOverflowException(int left, int right)
     {
         // Arrange
         
         // Act
-        var result = Calculator.BasicArithmetic.Sum(left, right);
-
+        var action = () => Calculator.BasicArithmetic.Sum(left, right);
+        
         // Assert
-        result.Should().Be(expected);
+        action.Should().Throw<OverflowException>();
     }
->>>>>>> Incoming (Background Agent changes)
 }
