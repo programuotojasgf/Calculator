@@ -1,0 +1,57 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Tt]est[Rr]esults/
+[Aa]rtifacts/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+**/project.lock.json
+**/project.fragment.lock.json
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# DotCover
+*.dotCover
+
+# MSBuild Binary and Log
+*.binlog
+
+# Others
+*.cache
+*.log
+*.tss
+*.orig
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Azure Pipelines
+**/.azure-pipelines/**
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# Publish outputs
+**/publish/
