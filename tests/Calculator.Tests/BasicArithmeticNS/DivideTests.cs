@@ -111,7 +111,7 @@ public class DivideTests
 
         // Assert
         act.Should().Throw<DivideByZeroException>()
-           .WithMessage("Cannot divide by zero.");
+           .WithMessage("Attempted to divide by zero.");
     }
 
     [Theory]
