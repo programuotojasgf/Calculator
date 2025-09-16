@@ -114,4 +114,41 @@ public class MultiplyTests
         // Just verify no exception is thrown and result is calculated
         result.Should().BeOfType(typeof(int));
     }
+
+    [Theory]
+    [InlineData(1000000, 1000000)]  // 10^12 > int.MaxValue, will overflow
+    [InlineData(50000, 50000)]      // 2.5*10^9 > int.MaxValue, will overflow  
+    [InlineData(100000, 30000)]     // 3*10^9 > int.MaxValue, will overflow
+    [InlineData(-1000000, 1000000)] // -10^12 < int.MinValue, will overflow
+    [InlineData(46341, 46341)]      // sqrt(int.MaxValue) squared causes overflow
+    public void Multiply_WithOverflowCases_DoesNotThrow(int left, int right)
+    {
+        // Arrange
+        
+        // Act & Assert
+        // These cases will overflow but should not throw since method doesn't use checked arithmetic
+        Action act = () => Calculator.BasicArithmetic.Multiply(left, right);
+        
+        act.Should().NotThrow("multiplication should handle overflow silently without checked arithmetic");
+        
+        // Also verify a result is returned (even if wrapped)
+        var result = Calculator.BasicArithmetic.Multiply(left, right);
+        result.Should().BeOfType(typeof(int));
+    }
+
+    [Theory]
+    [InlineData(100000, 100000)]
+    [InlineData(200000, 200000)]
+    [InlineData(500000, 500000)]
+    [InlineData(1000000, 5000)]
+    public void Multiply_WithLargeNumbers_DoesNotThrowException(int left, int right)
+    {
+        // Arrange
+        
+        // Act & Assert
+        // These are large multiplications that may overflow but shouldn't throw
+        Action act = () => Calculator.BasicArithmetic.Multiply(left, right);
+        
+        act.Should().NotThrow("multiplication should handle overflow silently without checked arithmetic");
+    }
 }
