@@ -17,8 +17,6 @@ public class SumTests
         // Assert
         result.Should().Be(expected);
     }
-<<<<<<< Current (Your changes)
-=======
 
     [Theory]
     [InlineData(0, 0, 0)]
@@ -89,5 +87,4 @@ public class SumTests
         // Assert
         result.Should().Be(expected);
     }
->>>>>>> Incoming (Background Agent changes)
 }
