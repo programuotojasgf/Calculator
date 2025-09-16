@@ -151,4 +151,47 @@ public class MultiplyTests
         
         act.Should().NotThrow("multiplication should handle overflow silently without checked arithmetic");
     }
+
+    [Theory]
+    [InlineData(3, 5)]
+    [InlineData(7, 11)]
+    [InlineData(-4, 6)]
+    [InlineData(-8, -9)]
+    [InlineData(100, 200)]
+    [InlineData(-50, 75)]
+    [InlineData(1234, 5678)]
+    [InlineData(0, 999)]
+    [InlineData(int.MaxValue, 1)]
+    [InlineData(int.MinValue, 1)]
+    public void Multiply_CommutativeProperty_ReturnsEqualResults(int a, int b)
+    {
+        // Arrange
+        
+        // Act
+        var resultAB = Calculator.BasicArithmetic.Multiply(a, b);
+        var resultBA = Calculator.BasicArithmetic.Multiply(b, a);
+
+        // Assert
+        // Multiplication should be commutative: a * b = b * a
+        resultAB.Should().Be(resultBA, "multiplication should be commutative");
+    }
+
+    [Theory]
+    [InlineData(2, 3, 4)]      // 2 * (3 * 4) = (2 * 3) * 4
+    [InlineData(5, 6, 7)]      // 5 * (6 * 7) = (5 * 6) * 7  
+    [InlineData(-2, 3, -4)]    // -2 * (3 * -4) = (-2 * 3) * -4
+    [InlineData(10, 20, 30)]   // 10 * (20 * 30) = (10 * 20) * 30
+    [InlineData(1, 1, 1)]      // 1 * (1 * 1) = (1 * 1) * 1
+    public void Multiply_AssociativeProperty_ReturnsEqualResults(int a, int b, int c)
+    {
+        // Arrange
+        
+        // Act
+        var leftAssociation = Calculator.BasicArithmetic.Multiply(a, Calculator.BasicArithmetic.Multiply(b, c));
+        var rightAssociation = Calculator.BasicArithmetic.Multiply(Calculator.BasicArithmetic.Multiply(a, b), c);
+
+        // Assert
+        // Multiplication should be associative: a * (b * c) = (a * b) * c
+        leftAssociation.Should().Be(rightAssociation, "multiplication should be associative");
+    }
 }
